@@ -3,6 +3,8 @@ package bj.highfive.springbootdemo;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity; // Permet de crééer les migrations
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +15,14 @@ public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     private String ref;
     private String name;
     private String title;
@@ -20,11 +30,20 @@ public class Album {
     private int duration;
     private String status;
     private String url;
+    // signifie que la colonne "tags" est une collection d'élément simples (ici une collection de string)
+    @ElementCollection
     private List<String> tags;
+    @Column(name = "album_like")
     private String like;
 
 
-    public Album(String ref, String name, String title, String description, int duration, String status, String url,
+    public Album(
+        String ref,
+     String name,
+     String title,
+     String description,
+     int duration,
+     String status, String url,
             List<String> tags, String like) {
         this.ref = ref;
         this.name = name;
